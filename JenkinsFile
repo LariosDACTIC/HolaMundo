@@ -1,5 +1,8 @@
 pipeline {
     agent any 
+    tools {
+        jdk 'jdk-21'  // Este nombre debe coincidir con el nombre configurado en "Global Tool Configuration"
+    }
     environment {
         appName = "variable"
     }
@@ -11,7 +14,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage("Paso 1 - Lectura de parametros") {          
             steps {
                 script {			
