@@ -36,7 +36,7 @@ pipeline {
                   sh "echo 'COMPILANDO CODIGO'"   
                   sh 'pwd'
                   //sh 'ls -ltr'
-                  sh 'javac src/HolaMundo.java'
+                  sh 'javac HolaMundo.java'
                   //sh 'ls -ltr'   
                   //sh 'sleep 5'             
                   sh 'jar -cf HolaMundo.jar HolaMundo.class'    
