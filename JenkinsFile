@@ -1,5 +1,8 @@
 pipeline {
     agent any 
+    tools {
+        jdk 'jdk-21'  // Este nombre debe coincidir con el configurado en "Global Tool Configuration"
+    }
     environment {
         appName = "variable"
     }
@@ -29,11 +32,16 @@ pipeline {
                     bat "java -version"
                     bat "echo COMPILANDO CODIGO"
                     bat "cd %WORKSPACE%"
+                    // Compilar el archivo Java
                     bat 'javac HolaMundo.java'
-                    bat '"C:\\Program Files\\Java\\jdk-21\\bin\\jar" -cf HolaMundo.jar HolaMundo.class'    
+                    // Crear un archivo de manifiesto simple
+                    bat 'echo Main-Class: HolaMundo > temp.mf'
+                    // Crear el archivo JAR con el archivo de manifiesto
                     bat '"C:\\Program Files\\Java\\jdk-21\\bin\\jar" cmf temp.mf HolaMundo.jar HolaMundo.class'
+                    // Ejecutar el archivo JAR para verificar
                     bat 'java -jar HolaMundo.jar'
                     bat "echo #### Compilación exitosa ###"
+                    // Copiar el archivo JAR a una ubicación específica
                     bat 'copy HolaMundo.jar C:\\tmp\\'
                 }
             }
