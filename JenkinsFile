@@ -4,7 +4,6 @@ def jsonParse(def json) {
     new groovy.json.JsonSlurperClassic().parseText(json)
 }
 
-
 pipeline {
 
     agent any 
@@ -12,59 +11,49 @@ pipeline {
         appName = "variable" 
     }
     stages {
-        
-
-
-        
-        
-        
         stage("Paso 1 - Lectura de parametros"){          
               steps {
                   script {			
-                  sh "echo 'hola mundo desde GIT'"
-                  //sh "pwd"
-                  //sh "ls -ltr"
-                  sh "echo '##################Aca podemos hacer lectura de algunos parametros -- ##################' "      
-       
-                }
+                      bat "echo hola mundo desde GIT"
+                      //bat "cd %WORKSPACE%"
+                      //bat "dir"
+                      bat "echo ##################Aca podemos hacer lectura de algunos parametros -- ##################"      
+                  }
               }
         }
 
-        stage("paso 2 - Compilacion de codigo"){       
+        stage("Paso 2 - Compilación de código"){       
               steps {
                   script {			
-                  sh "echo 'COMPILANDO CODIGO'"   
-                  sh 'pwd'
-                  //sh 'ls -ltr'
-                  sh 'javac HolaMundo.java'
-                  //sh 'ls -ltr'   
-                  //sh 'sleep 5'             
-                  sh 'jar -cf HolaMundo.jar HolaMundo.class'    
-                  sh 'jar cmf temp.mf HolaMundo.jar HolaMundo.class'
-                  sh 'java -jar HolaMundo.jar'
-                  sh "echo '####Compilacion exitosa ###' "
-                  sh 'cp HolaMundo.jar /tmp/'
-                }
+                      bat "echo COMPILANDO CODIGO"   
+                      bat "cd %WORKSPACE%"
+                      //bat "dir"
+                      bat 'javac HolaMundo.java'
+                      //bat 'dir'   
+                      //bat 'timeout /t 5'             
+                      bat 'jar -cf HolaMundo.jar HolaMundo.class'    
+                      bat 'jar cmf temp.mf HolaMundo.jar HolaMundo.class'
+                      bat 'java -jar HolaMundo.jar'
+                      bat "echo #### Compilación exitosa ###"
+                      bat 'copy HolaMundo.jar C:\\tmp\\'
+                  }
               }
         }
-
     }
+
     post {
-
-          always {          
-              deleteDir()
-              sh "echo 'ESTA FASE SIEMPRE SE EJECUTA SIN IMPORTAR SI FUE FALLIDO O NO'"
-              sh "ls -ltr"
-          }
-          success {
-                sh "echo 'ESTA FASE SE EJECUTA SOLAMENTE SI FUE EXITOSO'"
-                sh "ls -ltr"
-            }
-
-          failure {
-                sh "echo 'ESTA FASE SE EJECUTA SI FUE FALLIDO'"
-                sh "ls -ltr"
-          }
-        
+        always {          
+            deleteDir()
+            bat "echo ESTA FASE SIEMPRE SE EJECUTA SIN IMPORTAR SI FUE FALLIDO O NO"
+            bat "dir"
+        }
+        success {
+            bat "echo ESTA FASE SE EJECUTA SOLAMENTE SI FUE EXITOSO"
+            bat "dir"
+        }
+        failure {
+            bat "echo ESTA FASE SE EJECUTA SI FUE FALLIDO"
+            bat "dir"
+        }
     }
-}  
+}
