@@ -1,26 +1,27 @@
-import groovy.json.JsonSlurperClassic
-
-def jsonParse(def json) {
-    new groovy.json.JsonSlurperClassic().parseText(json)
-}
-
 pipeline {
-
     agent any 
     environment {
-        appName = "variable" 
+        appName = "variable"
     }
     stages {
-        stage("Paso 1 - Lectura de parametros"){          
+        stage("Verificar PATH de Jenkins") {
+            steps {
+                script {
+                    bat "echo %PATH%"
+                }
+            }
+        }
+        
+        stage("Paso 1 - Lectura de parametros") {          
             steps {
                 script {			
                     bat "echo hola mundo desde GIT"
-                    bat "echo ################## Aca podemos hacer lectura de algunos parametros -- ##################"      
+                    bat "echo ################## Aca podemos hacer lectura de algunos parametros -- ##################"
                 }
             }
         }
 
-        stage("Paso 2 - Compilación de código"){       
+        stage("Paso 2 - Compilación de código") {       
             steps {
                 script {
                     bat "echo Verificando herramientas de Java"
@@ -40,7 +41,7 @@ pipeline {
     }
 
     post {
-        always {          
+        always {
             deleteDir()
             bat "echo ESTA FASE SIEMPRE SE EJECUTA SIN IMPORTAR SI FUE FALLIDO O NO"
             bat "dir"
