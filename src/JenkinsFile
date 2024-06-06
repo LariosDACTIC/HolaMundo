@@ -24,7 +24,8 @@ pipeline {
                   sh "echo 'hola mundo desde GIT'"
                   //sh "pwd"
                   //sh "ls -ltr"
-                  sh "echo '##################Aca podemos hacer lectura de algunos parametros -- ##################' "             
+                  sh "echo '##################Aca podemos hacer lectura de algunos parametros -- ##################' "      
+       
                 }
               }
         }
@@ -34,15 +35,15 @@ pipeline {
                   script {			
                   sh "echo 'COMPILANDO CODIGO'"   
                   sh 'pwd'
-                  sh 'ls -ltr'
+                  //sh 'ls -ltr'
                   sh 'javac App.java'
                   //sh 'ls -ltr'   
                   //sh 'sleep 5'             
-                  sh 'jar -cf App.jar App.class'    
+                  sh 'jar -cf HolaMundo.jar App.class'    
                   sh 'jar cmf temp.mf HolaMundo.jar App.class'
-                  sh 'java -jar App.jar'
+                  sh 'java -jar HolaMundo.jar'
                   sh "echo '####Compilacion exitosa ###' "
-                  sh 'cp App.jar /tmp/'
+                  sh 'cp HolaMundo.jar /tmp/'
                 }
               }
         }
