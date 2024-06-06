@@ -12,32 +12,30 @@ pipeline {
     }
     stages {
         stage("Paso 1 - Lectura de parametros"){          
-              steps {
-                  script {			
-                      bat "echo hola mundo desde GIT"
-                      //bat "cd %WORKSPACE%"
-                      //bat "dir"
-                      bat "echo ##################Aca podemos hacer lectura de algunos parametros -- ##################"      
-                  }
-              }
+            steps {
+                script {			
+                    bat "echo hola mundo desde GIT"
+                    bat "echo ################## Aca podemos hacer lectura de algunos parametros -- ##################"      
+                }
+            }
         }
 
         stage("Paso 2 - Compilación de código"){       
-              steps {
-                  script {			
-                      bat "echo COMPILANDO CODIGO"   
-                      bat "cd %WORKSPACE%"
-                      //bat "dir"
-                      bat 'javac HolaMundo.java'
-                      //bat 'dir'   
-                      //bat 'timeout /t 5'             
-                      bat 'jar -cf HolaMundo.jar HolaMundo.class'    
-                      bat 'jar cmf temp.mf HolaMundo.jar HolaMundo.class'
-                      bat 'java -jar HolaMundo.jar'
-                      bat "echo #### Compilación exitosa ###"
-                      bat 'copy HolaMundo.jar C:\\tmp\\'
-                  }
-              }
+            steps {
+                script {
+                    bat "echo Verificando herramientas de Java"
+                    bat "javac -version"
+                    bat "java -version"
+                    bat "echo COMPILANDO CODIGO"
+                    bat "cd %WORKSPACE%"
+                    bat 'javac HolaMundo.java'
+                    bat 'jar -cf HolaMundo.jar HolaMundo.class'    
+                    bat 'jar cmf temp.mf HolaMundo.jar HolaMundo.class'
+                    bat 'java -jar HolaMundo.jar'
+                    bat "echo #### Compilación exitosa ###"
+                    bat 'copy HolaMundo.jar C:\\tmp\\'
+                }
+            }
         }
     }
 
